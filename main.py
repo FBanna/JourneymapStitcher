@@ -97,6 +97,12 @@ print("x width =", xsize, "tiles\n")
 print("y width =", ysize, "tiles\n")
 input("press enter to start :)")
 
+###############
+#             #
+#   Calling   #
+#             #
+###############
+
 if xsize > 127 or ysize > 127:
     print("image too large! SPLITTING")
 
@@ -115,7 +121,7 @@ if xsize > 127 or ysize > 127:
             #creation(x,y,127,127, str(savename))
     
 
-exit()
+    exit()
 
 creation(startxtile, startytile, xsize, ysize, outputfile)
     
