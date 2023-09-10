@@ -79,9 +79,11 @@ elif style == 2:
     radius = input("radius in blocks (enter 'max' for maximium size on one image): ")
     if(radius == "max"):
         radius = 32512
-    elif(type(radius) == str):
+    elif(radius.isnumeric() == False):
         print("please enter valid radius!")
         exit()
+    else:
+        radius = int(radius)
 
     #important
     xsize = round((radius*2)/512)
