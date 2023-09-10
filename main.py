@@ -110,11 +110,11 @@ if xsize > 127 or ysize > 127:
     neededy = math.ceil(xsize/127)
     print("spit into", neededx*neededy, "images")
 
-    for ximages in range(0, neededx*127,127):
-        for yimages in range(0,neededy*127,127):
+    for ximages in range(0, neededx):
+        for yimages in range(0,neededy):
             
-            x = ximages + startxtile
-            y = yimages + startytile
+            x = ximages*127 + startxtile
+            y = yimages*127 + startytile
             savename = str("out" + str(ximages) + ", " + str(yimages))
 
             print("calling creation with", x,y,127,127,str(savename))
