@@ -76,7 +76,12 @@ if style == 1:
 elif style == 2:
     centerx = int(input("center x coord: "))
     centery = int(input("center y coord: "))
-    radius = int(input("radius in blocks: "))
+    radius = input("radius in blocks (enter 'max' for maximium size on one image): ")
+    if(radius == "max"):
+        radius = 32512
+    elif(type(radius) == 'str'):
+        print("please enter valid radius!")
+        exit()
 
     #important
     xsize = round((radius*2)/512)
