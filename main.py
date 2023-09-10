@@ -106,19 +106,57 @@ input("press enter to start :)")
 if xsize > 127 or ysize > 127:
     print("image too large! SPLITTING")
 
-    neededx = math.ceil(xsize/127)
-    neededy = math.ceil(xsize/127)
-    print("spit into", neededx*neededy, "images")
 
-    for ximages in range(0, neededx):
-        for yimages in range(0,neededy):
+    #FIND CENTER
+
+    midx = startxtile+round(xsize/2)
+    midy = startxtile+round(ysize/2)
+
+    imagesizex = round(midx-startxtile)
+    imagesizey = round(midy-startytile)
+    
+
+    #neededx = xsize/127
+    #neededy = xsize/127
+    print(midx,midy)
+
+    if(midx-startxtile>127):
+        while(imagesizex>127):
+            print(imagesizex, "xsize too big halved!")
+            imagesizex = round(imagesizex/2)
+        print("xsize is now", imagesizex)
+
+    if(midy-startytile>127):
+        while(imagesizey>127):
+            print(imagesizey, "ysize too big halved!")
+            imagesizey = round(imagesizey/2)
+        print("ysize is now", imagesizey)
+
+    neededx = xsize/imagesizex
+    neededy = ysize/imagesizey
+    print("split into", math.ceil(neededx*neededy), "different images, each with size of:", str(imagesizex)+", "+ str(imagesizey))
+
+    input("press enter to start :) (again)")    
+        
+
+    
+    
+    #neededx = math.ceil(xsize/127)
+    #neededy = math.ceil(xsize/127)
+    #print("spit into", neededx*neededy, "images")
+
+    for ximages in range(0, math.ceil(neededx)):
+        for yimages in range(0,math.ceil(neededy)):
+
             
-            x = ximages*127 + startxtile
-            y = yimages*127 + startytile
+            
+            x = ximages*imagesizex + startxtile
+            y = yimages*imagesizey + startytile
             savename = str("out" + str(ximages) + ", " + str(yimages))
 
             print("calling creation with", x,y,127,127,str(savename))
-            #creation(x,y,127,127, str(savename))
+            creation(x,y,imagesizex,imagesizey, str(savename))
+     
     
 
     exit()
