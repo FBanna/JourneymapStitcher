@@ -12,9 +12,6 @@ outputfile = "out"
 ################
 
 def creation(startingx, startingy, width, height, out):
-    print("creation callled with: ", startingx,startingy,width,height, "saving to:", out)
-    name = str()
-    filename2 = str()
          
     img = Image.new(mode = "RGB", size = (width*512, height*512), color = "white")
 
@@ -26,9 +23,6 @@ def creation(startingx, startingy, width, height, out):
             x = xaxis + startingx
 
             y = yaxis + startingy
-
-            #print(x,y)
-
           
             targetfile = directory + "/" + str(x) + "," + str(y) + ".png"
 
@@ -38,7 +32,7 @@ def creation(startingx, startingy, width, height, out):
                 tempimg = Image.open(targetfile)
                 img.paste(tempimg, ((xaxis)*512,(yaxis)*512))
 
-    img.save(out + ".jpg", quality=100)
+    img.save(out + ".jpg", quality=100) # you can change this for different jpeg qualities
 
 #############
 #           #
@@ -102,7 +96,6 @@ else:
 print("starting at:", str(startxtile) + ", " + str(startytile) + "\n")
 print("x width =", xsize, "tiles\n")
 print("y width =", ysize, "tiles\n")
-input("press enter to start :)")
 
 ###############
 #             #
@@ -111,46 +104,30 @@ input("press enter to start :)")
 ###############
 
 if xsize > 127 or ysize > 127:
-    print("image too large! SPLITTING")
+    print("\nimage too large! SPLITTING")
 
+    imagesizex = round(xsize/2)
+    imagesizey = round(xsize/2)
 
-    #FIND CENTER
-
-    midx = startxtile+round(xsize/2)
-    midy = startxtile+round(ysize/2)
-
-    imagesizex = round(midx-startxtile)
-    imagesizey = round(midy-startytile)
     
+    while(imagesizex>127):
+        print(imagesizex, "xsize too big halved!")
+        imagesizex = imagesizex/2
+    imagesizex = round(imagesizex)
+    print("xsize is now", imagesizex)
 
-    #neededx = xsize/127
-    #neededy = xsize/127
-    print(midx,midy)
-
-    if(midx-startxtile>127):
-        while(imagesizex>127):
-            print(imagesizex, "xsize too big halved!")
-            imagesizex = round(imagesizex/2)
-        print("xsize is now", imagesizex)
-
-    if(midy-startytile>127):
-        while(imagesizey>127):
-            print(imagesizey, "ysize too big halved!")
-            imagesizey = round(imagesizey/2)
-        print("ysize is now", imagesizey)
+    while(imagesizey>127):
+        print(imagesizey, "ysize too big halved!")
+        imagesizey = imagesizey/2
+    imagesizey = round(imagesizey)
+    print("ysize is now", imagesizey)
 
     neededx = xsize/imagesizex
     neededy = ysize/imagesizey
-    print("split into", math.ceil(neededx*neededy), "different images, each with size of:", str(imagesizex)+", "+ str(imagesizey))
 
-    input("press enter to start :) (again)")    
-        
+    print("\nsplit into", math.ceil(neededx*neededy), "different images, each with size of:", str(imagesizex)+", "+ str(imagesizey))
 
-    
-    
-    #neededx = math.ceil(xsize/127)
-    #neededy = math.ceil(xsize/127)
-    #print("spit into", neededx*neededy, "images")
+    input("press enter to start :)") 
 
     for ximages in range(0, math.ceil(neededx)):
         for yimages in range(0,math.ceil(neededy)):
@@ -161,14 +138,12 @@ if xsize > 127 or ysize > 127:
             y = yimages*imagesizey + startytile
             savename = str("out" + str(ximages) + ", " + str(yimages))
 
-            print("calling creation with", x,y,127,127,str(savename))
+            print("calling creation of image with", x,y,imagesizex,imagesizey,str(savename))
             creation(x,y,imagesizex,imagesizey, str(savename))
-     
-    
 
-    exit()
-
-creation(startxtile, startytile, xsize, ysize, outputfile)
+else:
+    input("press enter to start :)")
+    creation(startxtile, startytile, xsize, ysize, outputfile)
     
     
 
